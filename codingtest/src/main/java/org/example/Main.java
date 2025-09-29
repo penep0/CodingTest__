@@ -6,27 +6,19 @@ import java.util.*;
 public class Main {
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        StringBuilder sb = new StringBuilder();
 
-        int n = Integer.parseInt(br.readLine());
-        String[][] name = new String[n][2];
-        for(int i = 0; i < n; i++) {
+        int T = Integer.parseInt(br.readLine().trim());
+        for (int t = 0; t < T; t++) {
             StringTokenizer st = new StringTokenizer(br.readLine());
-            name[i][0] = st.nextToken();
-            name[i][1] = st.nextToken();
+            int H = Integer.parseInt(st.nextToken());
+            int W = Integer.parseInt(st.nextToken());
+            int N = Integer.parseInt(st.nextToken());
+            int floor = (N - 1) % H + 1;
+            int room = (N - 1) / H + 1;
+            sb.append(floor * 100 + room).append("\n");
         }
-
-        Arrays.sort(name, new Comparator<String[]>() {
-            @Override
-            public int compare(String[] s1, String[] s2) {
-                return Integer.parseInt(s1[0]) - Integer.parseInt(s2[0]);
-            }
-
-        });
-
-        for(String[] s : name) {
-            System.out.println(s[0] + " " + s[1]);
-        }
-        br.close();
+        System.out.print(sb.toString());
     }
 }
 
