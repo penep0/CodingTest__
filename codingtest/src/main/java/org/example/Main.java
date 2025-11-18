@@ -5,20 +5,30 @@ import java.util.*;
 
 public class Main {
     public static void main(String[] args) throws IOException {
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        StringBuilder sb = new StringBuilder();
+        Scanner scanner = new Scanner(System.in);
+        String word = scanner.nextLine().toUpperCase();
 
-        int T = Integer.parseInt(br.readLine().trim());
-        for (int t = 0; t < T; t++) {
-            StringTokenizer st = new StringTokenizer(br.readLine());
-            int H = Integer.parseInt(st.nextToken());
-            int W = Integer.parseInt(st.nextToken());
-            int N = Integer.parseInt(st.nextToken());
-            int floor = (N - 1) % H + 1;
-            int room = (N - 1) / H + 1;
-            sb.append(floor * 100 + room).append("\n");
+        int[] count = new int[26];
+
+        for (int i = 0; i < word.length(); i++) {
+            char c = word.charAt(i);
+            if ('A' <= c && c <= 'Z') {
+                count[c - 'A']++;
+            }
         }
-        System.out.print(sb.toString());
+
+        int max = 0;
+        char answer = '?';
+
+        for (int i = 0; i < 26; i++) {
+            if (count[i] > max) {
+                max = count[i];
+                answer = (char) ('A' + i);
+            } else if (count[i] == max && max != 0) {
+                answer = '?';
+            }
+        }
+
+        System.out.println(answer);
     }
 }
-
