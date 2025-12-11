@@ -5,30 +5,24 @@ import java.util.*;
 
 public class Main {
     public static void main(String[] args) throws IOException {
-        Scanner scanner = new Scanner(System.in);
-        String word = scanner.nextLine().toUpperCase();
-
-        int[] count = new int[26];
-
-        for (int i = 0; i < word.length(); i++) {
-            char c = word.charAt(i);
-            if ('A' <= c && c <= 'Z') {
-                count[c - 'A']++;
+        Scanner sc = new Scanner(System.in);
+        int n = Integer.parseInt(sc.nextLine());
+        for(int i = 0; i < n; i++) {
+            String line = sc.nextLine();
+            Stack<Character> stack = new Stack<>();
+            boolean flag = true;
+            for(int j = 0; j < line.length(); j++) {
+                if(line.charAt(j) == '(') {
+                    stack.push(line.charAt(j));
+                } else if(!stack.isEmpty() && line.charAt(j) == ')') {
+                    stack.pop();
+                } else {
+                    flag = false;
+                    break;
+                }
             }
+            if(!stack.isEmpty()) flag = false;
+            System.out.println(flag ? "YES" : "NO");
         }
-
-        int max = 0;
-        char answer = '?';
-
-        for (int i = 0; i < 26; i++) {
-            if (count[i] > max) {
-                max = count[i];
-                answer = (char) ('A' + i);
-            } else if (count[i] == max && max != 0) {
-                answer = '?';
-            }
-        }
-
-        System.out.println(answer);
     }
 }
